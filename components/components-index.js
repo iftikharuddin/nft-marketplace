@@ -7,5 +7,6 @@ import Service from "./Service/Service";
 import BigNFTSilder from "./BigNFTSilder/BigNFTSilder";
 import Subscribe from "./Subscribe/Subscribe";
 import Title from "./Title/Title";
+import Category from "./Category/Category";
 
-export {Button, Footer, Navbar, HeroSection, Service, BigNFTSilder, Subscribe, Title};
+export {Button, Footer, Navbar, HeroSection, Service, BigNFTSilder, Subscribe, Title, Category};
