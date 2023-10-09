@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import {Navbar, Footer, HeroSection, Service, BigNFTSilder, Subscribe, Title, Category, Filter} from "../components/components-index";
+import {Navbar, Footer, HeroSection, Service, BigNFTSilder, Subscribe, Title, Category, Filter, NFTCard, Collection, FollowerTab} from "../components/components-index";
 import Style from "./globals.css";
 
 const MyApp = ({Component, pageProps}) => (
@@ -9,11 +9,15 @@ const MyApp = ({Component, pageProps}) => (
         <HeroSection/>
         <Service/>
         <BigNFTSilder/>
+        <Title heading="New Collection" paragraph="filter by collection" />
+        <Collection/>
+        <FollowerTab/>
         <Title heading="Filter" paragraph="filter by nfts" />
         <Filter/>
         <Title heading="Browse by category" paragraph="para goes here" />
          <Category/>
         <Subscribe/>
+        <NFTCard/>
         <Footer/>
     </div>
 );
