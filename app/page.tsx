@@ -5,7 +5,7 @@ import {
         Service, BigNFTSilder, Subscribe,
         Title,
         Category, Filter, NFTCard,
-        Collection, FollowerTab, AudioLive, Slider, Brand} from "../components/components-index";
+        Collection, FollowerTab, AudioLive, Slider, Brand, Video} from "../components/components-index";
 import Style from "./globals.css";
 
 const MyApp = ({Component, pageProps}) => (
@@ -22,10 +22,12 @@ const MyApp = ({Component, pageProps}) => (
         <Filter/>
         <Title heading="Audio" paragraph="Audio nfts" />
         <AudioLive/>
-        <Title heading="Browse by category" paragraph="para goes here" />
+        <Title heading="Browse by category" paragraph="category section" />
         <Category/>
         <Subscribe/>
         <NFTCard/>
+        <Title heading="Videos" paragraph="Video section" />
+        <Video/>
         <Brand/>
         <Footer/>
 
