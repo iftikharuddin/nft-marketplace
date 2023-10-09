@@ -14,7 +14,7 @@ import Collection from "./Collection/Collection";
 import FollowerTab from "./FollowerTab/FollowerTab";
 import AudioLive from "./AudioLive/AudioLive"
 import LikeProfile from "./LikeProfile/LikeProfile";
-
+import SliderCard from "./Slider/SliderCard/SliderCard";
 export {
     Button,
     Footer,
@@ -27,5 +27,6 @@ export {
     NFTCard, Collection,
     FollowerTab,
     AudioLive,
-    LikeProfile
+    LikeProfile,
+    SliderCard
 };

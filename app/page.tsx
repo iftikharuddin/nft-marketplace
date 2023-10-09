@@ -5,7 +5,7 @@ import {
         Service, BigNFTSilder, Subscribe,
         Title,
         Category, Filter, NFTCard,
-        Collection, FollowerTab, AudioLive} from "../components/components-index";
+        Collection, FollowerTab, AudioLive, SliderCard} from "../components/components-index";
 import Style from "./globals.css";
 
 const MyApp = ({Component, pageProps}) => (
@@ -25,6 +25,7 @@ const MyApp = ({Component, pageProps}) => (
         <Category/>
         <Subscribe/>
         <NFTCard/>
+        <SliderCard/>
         <Footer/>
     </div>
 );
