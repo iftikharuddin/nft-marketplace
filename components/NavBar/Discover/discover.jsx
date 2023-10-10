@@ -29,7 +29,7 @@ const Discover = () => {
         },
         {
             name: "Connect Wallet",
-            link: "connect-wallet",
+            link: "connect-wallet-wallet",
         },
         {
             name: "Blog",
