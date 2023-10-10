@@ -6,6 +6,8 @@ import Image from "next/image";
 import Style from "./about-us.module.css";
 import { Brand } from "../../components/components-index";
 import images from "../../img";
+import Navbar from "../../components/NavBar/navbar";
+import Footer from "../../components/Footer/footer";
 
 const aboutus = () => {
     const founderArray = [
@@ -47,6 +49,7 @@ const aboutus = () => {
     ];
     return (
         <div className={Style.aboutus}>
+            <Navbar/>
             <div className={Style.aboutus_box}>
                 <div className={Style.aboutus_box_hero}>
                     <div className={Style.aboutus_box_hero_left}>
@@ -108,6 +111,7 @@ const aboutus = () => {
                 </div>
             </div>
             <Brand />
+            <Footer/>
         </div>
     );
 };
