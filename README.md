@@ -29,9 +29,12 @@ Contract for this is ready, now building the marke up in HTML, Nextjs, React and
 - About us page
 - Login and Signup pages
 - Subscription
-- ....
 
 
 **Note:** img directory was removed bcz of big size, so you can create your own and use own images.
+
+# Next? 
+
+Now we will start connecting this frontend with the smart contract for full dynamic functionalities.
 
 Thank you
