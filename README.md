@@ -1,40 +1,13 @@
-## NFT Marketplace 
+# Sample Hardhat Project
 
-Contract for this is ready, now building the marke up in HTML, Nextjs, React and typescript
+This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
 
-### Common Components
+Try running some of the following tasks:
 
-- Navbar
-- Footer
-- Category
-- Button
-- Filter
-- Follower Tab
-- NFTCard
-- Service Section
-- Subscribe
-- Audio Live section
-- Title reusable 
-- BIG NFT Slider
-- Slider
-- Brand section added
-- Video section
-- Page Page
-- Author page
-- Search page
-- Account page added
-- NFT React Image Drag & Drop File Upload
-- Connect Wallets Page
-- Contact us page
-- About us page
-- Login and Signup pages
-- Subscription
-
-
-**Note:** img directory was removed bcz of big size, so you can create your own and use own images.
-
-# Next? 
-
-Now we will start connecting this frontend with the smart contract for full dynamic functionalities.
-
-Thank you
+```shell
+npx hardhat help
+npx hardhat test
+REPORT_GAS=true npx hardhat test
+npx hardhat node
+npx hardhat run scripts/deploy.js
+```
