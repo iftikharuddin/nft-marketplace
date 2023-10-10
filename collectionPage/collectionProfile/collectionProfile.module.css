@@ -50,6 +50,7 @@
 .collectionProfile_box_middle{
     display: grid;
     align-self: flex-start;
+    margin: 0 auto;
 }
 
 .collectionProfile_box_middle h1{

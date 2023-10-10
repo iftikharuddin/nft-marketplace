@@ -21,7 +21,7 @@ const BigNFTSilder = () => {
             price: "00664 ETH",
             like: 243,
             image: images.user1,
-            nftImage: images.nft_image_1,
+            nftImage: images.nft_image_3,
             time: {
                 days: 21,
                 hours: 40,

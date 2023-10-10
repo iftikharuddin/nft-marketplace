@@ -9,11 +9,11 @@
   --shadow-light-color: #fff;
   --main-bg-color: #ecf0f3;
 
-  --box-shadow: 1rem 1rem 1rem var(--shadow-dark-color),
-  -1rem -1rem 1rem var(--shadow-light-color);
+  /*--box-shadow: 1rem 1rem 1rem var(--shadow-dark-color),*/
+  /*-1rem -1rem 1rem var(--shadow-light-color);*/
 
-  --box-shadow-2: 0rem 0rem 0rem var(--shadow-dark-color),
-  -.3rem -.3rem 1rem var(--shadow-dark-color)
+  /*--box-shadow-2: 0rem 0rem 0rem var(--shadow-dark-color),*/
+  /*-.3rem -.3rem 1rem var(--shadow-dark-color)*/
 
 }
 
@@ -25,6 +25,8 @@ body {
   font-size: 14px;
   background-color: var(--main-bg-color);
   color: var(--icons-color);
+  max-width: 100%;
+  overflow-x: hidden !important;
 }
 
 a {
@@ -59,10 +61,10 @@ a {
 }
 @media (prefers-color-scheme: dark) {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
   body {
-    color: white;
-    background: black;
+    color: black;
+    background: light;
   }
 }

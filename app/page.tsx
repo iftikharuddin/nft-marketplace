@@ -14,10 +14,9 @@ const MyApp = ({Component, pageProps}) => (
         <HeroSection/>
         <Service/>
         <BigNFTSilder/>
-        <Title heading="New Collection" paragraph="filter by collection" />
-        <Collection/>
-        <FollowerTab/>
+        {/*<FollowerTab/>*/}
         <Slider/>
+        {/*<Collection/>*/}
         <Title heading="Filter" paragraph="filter by nfts" />
         <Filter/>
         <Title heading="Audio" paragraph="Audio nfts" />
@@ -26,7 +25,6 @@ const MyApp = ({Component, pageProps}) => (
         <Category/>
         <Subscribe/>
         <NFTCard/>
-        <Title heading="Videos" paragraph="Video section" />
         <Video/>
         <Brand/>
         <Footer/>
