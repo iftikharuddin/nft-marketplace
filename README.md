@@ -28,7 +28,7 @@ Contract for this is ready, now building the marke up in HTML, Nextjs, React and
 - Contact us page
 - About us page
 - Login and Signup pages
-- ....
+- Subscription
 - ....
 
 
