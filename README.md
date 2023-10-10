@@ -2,7 +2,7 @@
 
 Contract for this is ready, now building the marke up in HTML, Nextjs, React and typescript
 
-###Common Components
+### Common Components
 
 - Navbar
 - Footer
@@ -20,7 +20,7 @@ Contract for this is ready, now building the marke up in HTML, Nextjs, React and
 - Brand section added
 - Video section
 - Page Page
-- ....
+- Author page
 - ....
 - ....
 
