@@ -30,7 +30,6 @@ const MyApp = ({Component, pageProps}) => (
         <Video/>
         <Brand/>
         <Footer/>
-
     </div>
 );
 

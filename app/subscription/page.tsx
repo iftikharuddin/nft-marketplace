@@ -43,9 +43,8 @@ const subscription = () => {
         },
     ];
     return (
-        <div><Navbar/>
         <div className={Style.Subscription}>
-
+            <Navbar/>
             <div className={Style.Subscription_box}>
                 <div className={Style.Subscription_box_info}>
                     <h1>💎 Subscription</h1>
@@ -58,9 +57,8 @@ const subscription = () => {
                     ))}
                 </div>
             </div>
-
+            <Footer/>
         </div>
-        <Footer/></div>
     );
 };
 
