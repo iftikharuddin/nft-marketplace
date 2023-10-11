@@ -10,7 +10,11 @@ import images from "../../img";
 import {NFTMarketplaceContext} from "../../Context/NFTMarketplaceContext";
 
 const HeroSection = () => {
+    const {checkIfWalletIsConnected} = useContext(NFTMarketplaceContext);
     const {titleData} = useContext(NFTMarketplaceContext);
+    useEffect(()=>{
+        checkIfWalletIsConnected()
+    }, []);
     return (
         <div className={Style.heroSection}>
             <div className={Style.heroSection_box}>

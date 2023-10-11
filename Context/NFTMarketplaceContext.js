@@ -48,10 +48,11 @@ export const NFTMarketplaceProvider = ({children}) => {
                 method: 'eth_accounts'
             });
             if(accounts.length) {
-                setCurrentAccount[accounts[0]];
+                setCurrentAccount(accounts[0]);
             } else {
                 console.log("No account found");
             }
+            console.log(currentAccount);
         } catch (e) {
             console.log(e);
         }
@@ -139,29 +140,31 @@ export const NFTMarketplaceProvider = ({children}) => {
                     const tokenUri = await contract.tokenURI(tokenId);
                     const {
                         data: {
-                            image, name, description
-                        } = await axios.get(tokenUri);
+                            image, name, description,
+                        },
+                    }= await axios.get(tokenUri);
+
 
                         const price = ethers.utils.formatUnits(
                             unformattedPrice.toString(),
                             'ether'
                         );
 
-                        return {
-                            price,
-                            tokenId: tokenId.toNumber(),
-                            seller,
-                            owner,
-                            image,
-                            name,
-                            description,
-                            tokenUri,
-                        }
+                    return {
+                        price,
+                        tokenId: tokenId.toNumber(),
+                        seller,
+                        owner,
+                        image,
+                        name,
+                        description,
+                        tokenUri,
                     }
-                })
+                    }
+                )
 
             );
-            retun items;
+            return items;
         } catch (e) {
             console.log("Error while fetching NFT");
         }
@@ -206,14 +209,31 @@ export const NFTMarketplaceProvider = ({children}) => {
         }
     }
 
+    // Allow user to BUY NFT
+    const buyNFT = async (nft)=> {
+        try {
+            const contract = await connectingWithSmartContract();
+            const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
+            const transaction = await contract.createMarketSale(nft.tokenId, {
+                value: price,
+            });
+            await transaction.wait();
+        } catch (e) {
+            console.log("Error while buying NFTs");
+        }
+    }
+
     return (
         <NFTMarketplaceContext.Provider
             value={{
-                connectWallet(),
+                checkIfWalletIsConnected,
+                connectWallet,
                 titleData,
                 uploadToIPFS,
                 createNFT,
                 fetchNFTs,
+                buyNFT,
+                currentAccount,
                 fetchMyNFTsOrListedNFTs
             }}
         >
