@@ -1,6 +1,6 @@
 "use client"; // This is a client component 👈🏽
 
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,6 +14,7 @@ import Style from "./navbar.module.css";
 import {Discover, Helpcenter, Notification, Sidebar, Profile} from "./index";
 import {Button} from "../components-index";
 import images from "../../img";
+import {NFTMarketplaceContext} from "../../Context/NFTMarketplaceContext";
 
 const Navbar = () => {
     //----USESTATE COMPONNTS
@@ -73,6 +74,10 @@ const Navbar = () => {
         }
     };
 
+    // Smart contract section
+    const {currentAccount, connectWallet} = useContext(NFTMarketplaceContext);
+
+
     return (
         <div className={Style.navbar}>
             <div className={Style.navbar_container}>
@@ -124,7 +129,14 @@ const Navbar = () => {
 
                     {/* CREATE BUTTON SECTION */}
                     <div className={Style.navbar_container_right_button}>
-                        <Button btnName="Create" handleClick={() => {}} />
+                        {
+                            currentAccount == "" ? <Button btnName="Connect" handleClick={()=> connectWallet()} />
+                        : (
+                            <a href="upload-nft">
+                                <Button btnName="Create" handleClick={()=> ""} />
+                            </a>
+                           )
+                        }
                     </div>
 
                     {/* USER PROFILE */}
