@@ -2,7 +2,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import Web3Modal from "web3modal";
 import {ethers} from "ethers";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import {create as ipfsHttpClient } from "ipfs-http-client";
 import { BrowserProvider } from "ethers";
@@ -10,15 +10,19 @@ import { BrowserProvider } from "ethers";
 // internal import
 import {NFTMarketplaceAddress, NFTMarketplaceABI} from './constants';
 
-const projectId = process.env.projectId; // configure this in next.config or env
+const projectId = process.env.NEXT_PUBLIC_PROJECT_ID; // configure this in next.config or env
 
-const projectSecretKey = process.env.projectSecretKey; // configure this in next.config or env
+// todo: make these keys (Consider using Next.js API routes to isolate any service-oriented business logic to the server-side of things.)
+
+const projectSecretKey = process.env.NEXT_PUBLIC_PROJECT_SECRET_KEY; // configure this in next.config or env
 
 // const auth = "Basic" + (Buffer.from(`{projectId}:{projectSecretKey}`).toString("base64"));
 const auth =
     "Basic " + Buffer.from(projectId + ":" + projectSecretKey).toString("base64");
 
-const subdomain = process.env.subdomain; // configure this in next.config or env
+// todo: make these keys (Consider using Next.js API routes to isolate any service-oriented business logic to the server-side of things.)
+
+const subdomain = process.env.NEXT_PUBLIC_SUBDOMAIN; // configure this in next.config or env
 const client = ipfsHttpClient(
     {
         host: "infura-ipfs.io",
@@ -61,7 +65,7 @@ export const NFTMarketplaceProvider = ({children}) => {
     const [error, setError] = useState("");
     const [openError, setOpenError] = useState(false);
     const [currentAccount, setCurrentAccount] = useState("");
-
+    const router = useRouter();
     // check if wallet is connected or nah
     const checkIfWalletIsConnected = async()=> {
         try {
