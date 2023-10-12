@@ -170,7 +170,11 @@ const Navbar = () => {
             {/* SIDBAR CPMPONENT */}
             {openSideMenu && (
                 <div className={Style.sidebar}>
-                    <Sidebar setOpenSideMenu={setOpenSideMenu} />
+                    <Sidebar
+                        setOpenSideMenu={setOpenSideMenu}
+                        currentAccount={currentAccount}
+                        connectWallet={connectWallet}
+                    />
                 </div>
             )}
         </div>

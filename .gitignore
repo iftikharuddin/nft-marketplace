@@ -26,6 +26,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
@@ -37,3 +38,4 @@ next-env.d.ts
 /artifacts
 /cache
 /Context/NFTMarketplace.json
+next.config.js
