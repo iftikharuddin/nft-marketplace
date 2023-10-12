@@ -1,11 +1,10 @@
 'use client';
 import React, {useState, useEffect, useContext} from 'react';
 import Web3Modal from "web3modal";
-import {ethers} from "ethers";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import {create as ipfsHttpClient } from "ipfs-http-client";
-import { BrowserProvider } from "ethers";
+const { ethers, JsonRpcProvider, BrowserProvider } = require('ethers');
 
 // internal import
 import {NFTMarketplaceAddress, NFTMarketplaceABI} from './constants';
@@ -132,6 +131,8 @@ export const NFTMarketplaceProvider = ({children}) => {
         }
     };
 
+
+
     //--- createSale FUNCTION
     const createSale = async (url, formInputPrice, isReselling, id) => {
         try {
@@ -161,49 +162,104 @@ export const NFTMarketplaceProvider = ({children}) => {
         }
     };
 
-    // Fetch NFTs function
+    // // Fetch NFTs function
+    // const fetchNFTs = async () => {
+    //     try {
+    //         const provider = new ethers.providers.JsonRpcProvider();
+    //         const contract = fetchContract(provider);
+    //
+    //         const data = await contract.fetchMarketItem();
+    //         // console.log(data);
+    //
+    //         const items = await Promise.all(
+    //             data.map(async({ tokenId, seller, owner, price: unformattedPrice})=>{
+    //                 const tokenUri = await contract.tokenURI(tokenId);
+    //                 const {
+    //                     data: {
+    //                         image, name, description,
+    //                     },
+    //                 }= await axios.get(tokenUri);
+    //
+    //
+    //                     const price = ethers.utils.formatUnits(
+    //                         unformattedPrice.toString(),
+    //                         'ether'
+    //                     );
+    //
+    //                 return {
+    //                     price,
+    //                     tokenId: tokenId.toNumber(),
+    //                     seller,
+    //                     owner,
+    //                     image,
+    //                     name,
+    //                     description,
+    //                     tokenUri,
+    //                 }
+    //                 }
+    //             )
+    //
+    //         );
+    //         return items;
+    //     } catch (e) {
+    //         console.log("Error while fetching NFT");
+    //     }
+    // }
+
+    //--FETCHNFTS FUNCTION
+
     const fetchNFTs = async () => {
         try {
-            const provider = new ethers.providers.JsonRpcProvider();
+            // const provider = new ethers.providers.JsonRpcProvider(
+            //     "https://eth-sepolia.g.alchemy.com/v2/5grUo6k3H7OGAUjfSszUqwC8OE2ryPn7"
+            // );
+            const provider = new ethers.JsonRpcProvider();
+
             const contract = fetchContract(provider);
 
-            const data = await contract.fetchMarketItem();
-            // console.log(data);
-
+            const data = await contract.fetchMarketItems();
+            console.log(data);
             const items = await Promise.all(
-                data.map(async({ tokenId, seller, owner, price: unformattedPrice})=>{
-                    const tokenUri = await contract.tokenURI(tokenId);
-                    const {
-                        data: {
-                            image, name, description,
-                        },
-                    }= await axios.get(tokenUri);
+                data.map(
+                    async ({ tokenId, seller, owner, price: unformattedPrice }) => {
+                        const tokenURI = await contract.tokenURI(tokenId);
 
-
-                        const price = ethers.utils.formatUnits(
+                        const {
+                            data: { image, name, description },
+                        } = await axios.get(tokenURI, {});
+                        const price = ethers.formatUnits(
                             unformattedPrice.toString(),
-                            'ether'
+                            "ether"
                         );
 
-                    return {
-                        price,
-                        tokenId: tokenId.toNumber(),
-                        seller,
-                        owner,
-                        image,
-                        name,
-                        description,
-                        tokenUri,
-                    }
+                        return {
+                            price,
+                            // tokenId: tokenId.toNumber(),
+                            tokenId,
+                            seller,
+                            owner,
+                            image,
+                            name,
+                            description,
+                            tokenURI,
+                        };
                     }
                 )
-
             );
+            console.log(items);
             return items;
-        } catch (e) {
-            console.log("Error while fetching NFT");
+
+            // }
+        } catch (error) {
+            // setError("Error while fetching NFTS");
+            // setOpenError(true);
+            console.log(error);
         }
-    }
+    };
+
+    useEffect(() => {
+        fetchNFTs();
+    }, []);
 
     // Fetch my NFT or listed NFTs
     const fetchMyNFTsOrListedNFTs = async(type)=> {
@@ -253,6 +309,7 @@ export const NFTMarketplaceProvider = ({children}) => {
                 value: price,
             });
             await transaction.wait();
+            router.push('/author');
         } catch (e) {
             console.log("Error while buying NFTs");
         }
