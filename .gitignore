@@ -11,6 +11,7 @@
 # next.js
 /.next/
 /out/
+next.config.js
 
 # production
 /build
@@ -38,4 +39,4 @@ next-env.d.ts
 /artifacts
 /cache
 /Context/NFTMarketplace.json
-next.config.js
+
