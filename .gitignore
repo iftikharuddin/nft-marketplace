@@ -39,4 +39,5 @@ next-env.d.ts
 /artifacts
 /cache
 /Context/NFTMarketplace.json
-
+.idea
+.idea/

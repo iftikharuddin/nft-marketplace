@@ -9,11 +9,11 @@ import { Filter } from "../../components/components-index";
 
 import { NFTCardTwo, Banner } from "../../collectionPage/collectionIndex";
 import images from "../../img";
+
+//SMART CONTRACT IMPORT
+import { NFTMarketplaceContext } from "../../Context/NFTMarketplaceContext";
 import Navbar from "../../components/NavBar/navbar";
 import Footer from "../../components/Footer/footer";
-
-import {NFTMarketplaceContext} from '../../Context/NFTMarketplaceContext';
-import Title from "../../components/Title/Title";
 
 const searchPage = () => {
     const { fetchNFTs, setError, currentAccount } = useContext(
@@ -24,16 +24,15 @@ const searchPage = () => {
 
     useEffect(() => {
         try {
-            // if (items) {
-                fetchNFTs().then((items) => {
-                    console.log(items);
-                    setNfts(items.reverse());
-                    setNftsCopy(items);
-                    console.log(nfts);
-                });
+            // if (currentAccount) {
+            fetchNFTs().then((items) => {
+                setNfts(items.reverse());
+                setNftsCopy(items);
+                console.log(nfts);
+            });
             // }
         } catch (error) {
-            console.log("Please reload the browser", error);
+            setError("Please reload the browser", error);
         }
     }, []);
 
@@ -56,23 +55,24 @@ const searchPage = () => {
     };
 
     // const collectionArray = [
-    //     images.nft_image_1,
-    //     images.nft_image_2,
-    //     images.nft_image_3,
-    //     images.nft_image_1,
-    //     images.nft_image_2,
-    //     images.nft_image_3,
-    //     images.nft_image_1,
-    //     images.nft_image_2,
+    //   images.nft_image_1,
+    //   images.nft_image_2,
+    //   images.nft_image_3,
+    //   images.nft_image_1,
+    //   images.nft_image_2,
+    //   images.nft_image_3,
+    //   images.nft_image_1,
+    //   images.nft_image_2,
     // ];
     return (
         <div className={Style.searchPage}>
             <Navbar/>
-            <Banner bannerImage={images.creatorbackground5} />
-            <SearchBar onHandleSearch={onHandleSearch}
-                       onClearSearch={onClearSearch}/>
+            <Banner bannerImage={images.creatorbackground2} />
+            <SearchBar
+                onHandleSearch={onHandleSearch}
+                onClearSearch={onClearSearch}
+            />
             <Filter />
-            <Title heading="Fetch NFTss"/>
             <NFTCardTwo NFTData={nfts} />
             <Slider />
             <Brand />

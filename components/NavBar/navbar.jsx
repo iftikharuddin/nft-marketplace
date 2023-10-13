@@ -2,7 +2,9 @@
 
 import React, {useState, useEffect, useContext} from 'react';
 import Image from "next/image";
+import { DiJqueryLogo } from "react-icons/di";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 // import icons
 import {MdNotifications} from 'react-icons/md';
@@ -23,6 +25,8 @@ const Navbar = () => {
     const [notification, setNotification] = useState(false);
     const [profile, setProfile] = useState(false);
     const [openSideMenu, setOpenSideMenu] = useState(false);
+
+    const router = useRouter();
 
     const openMenu = (e) => {
         const btnText = e.target.innerText;
@@ -83,7 +87,7 @@ const Navbar = () => {
             <div className={Style.navbar_container}>
                 <div className={Style.navbar_container_left}>
                     <div className={Style.logo}>
-                      <Image src={images.logo} alt="NFT Marketplace logo" width={100} height={100}/>
+                        <DiJqueryLogo onClick={() => router.push("/")} />
                     </div>
 
                     <div className={Style.navigation_container_left_box_input}>
@@ -132,9 +136,10 @@ const Navbar = () => {
                         {
                             currentAccount == "" ? <Button btnName="Connect" handleClick={()=> connectWallet()} />
                         : (
-                            <a href="upload-nft">
-                                <Button btnName="Create" handleClick={()=> ""} />
-                            </a>
+                            <Button
+                                btnName="Create"
+                                handleClick={() => router.push("/upload-nft")}
+                            />
                            )
                         }
                     </div>
@@ -152,7 +157,7 @@ const Navbar = () => {
                                 className={Style.navbar_container_right_profile}
                             />
 
-                            {profile && <Profile />}
+                            {profile && <Profile currentAccount={currentAccount}/>}
                         </div>
                     </div>
 

@@ -218,15 +218,16 @@ export const NFTMarketplaceProvider = ({children}) => {
             const contract = fetchContract(provider);
 
             const data = await contract.fetchMarketItems();
-            console.log(data);
+
             const items = await Promise.all(
                 data.map(
                     async ({ tokenId, seller, owner, price: unformattedPrice }) => {
                         const tokenURI = await contract.tokenURI(tokenId);
-
+                        console.log("TOken ID:", tokenId);
+                        console.log("TOken URL:", tokenURI);
                         const {
                             data: { image, name, description },
-                        } = await axios.get(tokenURI, {});
+                        } = await axios.get(tokenURI);
                         const price = ethers.formatUnits(
                             unformattedPrice.toString(),
                             "ether"
@@ -265,53 +266,62 @@ export const NFTMarketplaceProvider = ({children}) => {
     const fetchMyNFTsOrListedNFTs = async(type)=> {
         try {
             const contract = await ConnectingWithSmartContract();
-            const data = type == "fetchItemsListed"
-                ? await contract.fetchItemsListed()
-                : await contract.fetchMyNft();
+            // const data = type == "fetchItemsListed"
+            //     ? await contract.fetchItemsListed()
+            //     : await contract.fetchMyNFTs();
 
-            const items = await Prmise.all(
+            const data = await contract.fetchItemsListed();
+            console.log("This is DATAAA:", data);
+
+            const items = await Promise.all(
                 data.map(async ({tokenId, seller, owner, price: unformattedPrice}) => {
-                    const tokenURI = contract.tokenURI(tokenId);
+                    const myTokenURI = contract.tokenURI(tokenId);
                     const {
                         data: {
                             image, name, description,
                         },
-                    } = await axios.get(tokenURI);
-                    const price =ethers.utils.formatUnits(
+                    } = await axios.get(myTokenURI);
+                    const price =ethers.formatUnits(
                         unformattedPrice.toString(),
                         'ether'
                     );
                     return {
                         price,
-                        tokenId: tokenId.toNumber(),
+                        // tokenId: tokenId.toNumber(),
+                        tokenId,
                         seller,
                         owner,
                         image,
                         name,
                         description,
-                        tokenURI,
+                        myTokenURI,
                     }
                 })
             );
+            console.log("Items data:", items);
             return items;
-        } catch {
-            console.log("Error while fetching listed NFTs");
+        } catch (e) {
+            console.log("Error while fetching listed NFTs", e);
 
         }
     }
+
+    useEffect(() => {
+        fetchMyNFTsOrListedNFTs();
+    }, []);
 
     // Allow user to BUY NFT
     const buyNFT = async (nft)=> {
         try {
             const contract = await ConnectingWithSmartContract();
-            const price = ethers.utils.parseUnitss(nft.price.toString(), 'ether');
+            const price = ethers.parseUnits(nft.price, 'ether');
             const transaction = await contract.createMarketSale(nft.tokenId, {
                 value: price,
             });
             await transaction.wait();
             router.push('/author');
         } catch (e) {
-            console.log("Error while buying NFTs");
+            console.log("Error while buying NFTs", e);
         }
     }
 
@@ -326,7 +336,8 @@ export const NFTMarketplaceProvider = ({children}) => {
                 fetchNFTs,
                 buyNFT,
                 currentAccount,
-                fetchMyNFTsOrListedNFTs
+                fetchMyNFTsOrListedNFTs,
+                createSale,
             }}
         >
          {children}

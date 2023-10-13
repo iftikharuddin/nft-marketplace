@@ -5,7 +5,7 @@ import Style from "./AuthorNFTCardBox.module.css";
 import images from "../../img";
 import { NFTCardTwo } from "../../collectionPage/collectionIndex";
 import FollowerTabCard from "../../components/FollowerTab/FollowerTabCard/FollowerTabCard";
-import { Loader } from "../../components/components-index";
+// import { Loader } from "../../components/components-index";
 
 const AuthorNFTCardBox = ({
                               collectiables,

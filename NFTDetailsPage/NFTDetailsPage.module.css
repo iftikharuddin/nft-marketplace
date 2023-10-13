@@ -11,7 +11,7 @@
     gap: 5rem;
 }
 
-@media screen and (max-width: 35em) {
+@media screen and (max-width: 50em) {
     .NFTDetailsPage{
         margin-block: 2rem;
     }
