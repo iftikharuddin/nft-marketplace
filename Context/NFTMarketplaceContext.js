@@ -235,8 +235,7 @@ export const NFTMarketplaceProvider = ({children}) => {
 
                         return {
                             price,
-                            // tokenId: tokenId.toNumber(),
-                            tokenId,
+                            tokenId: Number(tokenId),
                             seller,
                             owner,
                             image,
@@ -310,20 +309,37 @@ export const NFTMarketplaceProvider = ({children}) => {
         fetchMyNFTsOrListedNFTs();
     }, []);
 
-    // Allow user to BUY NFT
-    const buyNFT = async (nft)=> {
+    // // Allow user to BUY NFT
+    // const buyNFT = async (nft)=> {
+    //     try {
+    //         const contract = await ConnectingWithSmartContract();
+    //         const price = ethers.parseUnits(nft.price, 'ether');
+    //         const transaction = await contract.createMarketSale(nft.tokenId, {
+    //             value: price,
+    //         });
+    //         await transaction.wait();
+    //         router.push('/author');
+    //     } catch (e) {
+    //         console.log("Error while buying NFTs", e);
+    //     }
+    // }
+    //---BUY NFTs FUNCTION
+    const buyNFT = async (nft) => {
         try {
             const contract = await ConnectingWithSmartContract();
-            const price = ethers.parseUnits(nft.price, 'ether');
+            const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
+
             const transaction = await contract.createMarketSale(nft.tokenId, {
                 value: price,
             });
+
             await transaction.wait();
-            router.push('/author');
-        } catch (e) {
-            console.log("Error while buying NFTs", e);
+            router.push("/author");
+        } catch (error) {
+            setError("Error While buying NFT");
+            setOpenError(true);
         }
-    }
+    };
 
     return (
         <NFTMarketplaceContext.Provider

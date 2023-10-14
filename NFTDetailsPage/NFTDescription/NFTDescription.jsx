@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
 import {
   MdVerified,
   MdCloudUpload,
@@ -37,7 +38,7 @@ const NFTDescription = ({ nft }) => {
   const [owner, setOwner] = useState(false);
 
   const router = useRouter();
-
+  console.log("Lets check NFT details:", nft);
   const historyArray = [
     images.user1,
     images.user2,
