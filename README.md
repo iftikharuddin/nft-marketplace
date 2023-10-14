@@ -16,7 +16,7 @@ npx hardhat run scripts/deploy.js --network localhost
 
 Todo (s):
 
-- Buy button not working
+- Buy button not working [Fixed]
 - Details page not fetching data [Fixed]
 - Console errors [Fixed]
-- Author page not rendering data
+- Author page not rendering data [InProgress]

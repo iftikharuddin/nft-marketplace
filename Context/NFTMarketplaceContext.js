@@ -258,52 +258,52 @@ export const NFTMarketplaceProvider = ({children}) => {
         fetchNFTs();
     }, []);
 
-    // // Fetch my NFT or listed NFTs
-    // const fetchMyNFTsOrListedNFTs = async(type)=> {
-    //     try {
-    //         const contract = await ConnectingWithSmartContract();
-    //         const data = type == "fetchItemsListed"
-    //             ? await contract.fetchItemsListed()
-    //             : await contract.fetchMyNFTs();
-    //
-    //         // const data = await contract.fetchItemsListed();
-    //         console.log("This is DATAAA:", data);
-    //
-    //         const items = await Promise.all(
-    //             data.map(async ({tokenId, seller, owner, price: unformattedPrice}) => {
-    //                 const myTokenURI = contract.tokenURI(tokenId);
-    //                 const {
-    //                     data: {
-    //                         image, name, description,
-    //                     },
-    //                 } = await axios.get(myTokenURI);
-    //                 const price =ethers.formatUnits(
-    //                     unformattedPrice.toString(),
-    //                     'ether'
-    //                 );
-    //                 return {
-    //                     price,
-    //                     tokenId: Number(tokenId),
-    //                     seller,
-    //                     owner,
-    //                     image,
-    //                     name,
-    //                     description,
-    //                     myTokenURI,
-    //                 }
-    //             })
-    //         );
-    //         console.log("Items data:", items);
-    //         return items;
-    //     } catch (e) {
-    //         console.log("Error while fetching listed NFTs", e);
-    //
-    //     }
-    // }
-    //
-    // useEffect(() => {
-    //     fetchMyNFTsOrListedNFTs();
-    // }, []);
+    // Fetch my NFT or listed NFTs
+    const fetchMyNFTsOrListedNFTs = async(type)=> {
+        try {
+            const contract = await ConnectingWithSmartContract();
+            const data = type == "fetchItemsListed"
+                ? await contract.fetchItemsListed()
+                : await contract.fetchMyNFTs();
+
+            // const data = await contract.fetchItemsListed();
+            console.log("This is DATAAA:", data);
+
+            const items = await Promise.all(
+                data.map(async ({tokenId, seller, owner, price: unformattedPrice}) => {
+                    const myTokenURI = contract.tokenURI(tokenId);
+                    const {
+                        data: {
+                            image, name, description,
+                        },
+                    } = await axios.get(myTokenURI);
+                    const price =ethers.formatUnits(
+                        unformattedPrice.toString(),
+                        'ether'
+                    );
+                    return {
+                        price,
+                        tokenId: Number(tokenId),
+                        seller,
+                        owner,
+                        image,
+                        name,
+                        description,
+                        myTokenURI,
+                    }
+                })
+            );
+            console.log("Items data:", items);
+            return items;
+        } catch (e) {
+            console.log("Error while fetching listed NFTs", e);
+
+        }
+    }
+
+    useEffect(() => {
+        fetchMyNFTsOrListedNFTs();
+    }, []);
 
     // // Allow user to BUY NFT
     // const buyNFT = async (nft)=> {
@@ -323,7 +323,7 @@ export const NFTMarketplaceProvider = ({children}) => {
     const buyNFT = async (nft) => {
         try {
             const contract = await ConnectingWithSmartContract();
-            const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
+            const price = ethers.parseUnits(nft.price.toString(), "ether");
 
             const transaction = await contract.createMarketSale(nft.tokenId, {
                 value: price,
@@ -348,7 +348,7 @@ export const NFTMarketplaceProvider = ({children}) => {
                 fetchNFTs,
                 buyNFT,
                 currentAccount,
-                // fetchMyNFTsOrListedNFTs,
+                fetchMyNFTsOrListedNFTs,
                 createSale,
             }}
         >

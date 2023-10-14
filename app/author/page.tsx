@@ -15,6 +15,8 @@ import {
 
 //IMPORT SMART CONTRACT DATA
 import { NFTMarketplaceContext } from "../../Context/NFTMarketplaceContext";
+import Navbar from "../../components/NavBar/navbar";
+import Footer from "../../components/Footer/footer";
 
 const author = () => {
     const followerArray = [
@@ -81,6 +83,7 @@ const author = () => {
 
     return (
         <div className={Style.author}>
+            <Navbar/>
             <Banner bannerImage={images.creatorbackground2} />
             <AuthorProfileCard currentAccount={currentAccount} />
             <AuthorTaps
@@ -108,11 +111,12 @@ const author = () => {
             />
             <div className={Style.author_box}>
                 {followerArray.map((el, i) => (
-                    <FollowerTabCard i={i} el={el} />
+                    <FollowerTabCard key={i+1} i={i} el={el} />
                 ))}
             </div>
 
             <Brand />
+            <Footer/>
         </div>
     );
 };
