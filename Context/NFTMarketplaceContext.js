@@ -266,18 +266,20 @@ export const NFTMarketplaceProvider = ({children}) => {
                 ? await contract.fetchItemsListed()
                 : await contract.fetchMyNFTs();
 
-            // const data = await contract.fetchItemsListed();
-            console.log("This is DATAAA:", data);
-
             const items = await Promise.all(
                 data.map(async ({tokenId, seller, owner, price: unformattedPrice}) => {
-                    const myTokenURI = contract.tokenURI(tokenId);
+
+                    const myTokenURI = await contract.tokenURI(tokenId);
+
+                    console.log("This is your Token URI:", myTokenURI);
+
                     const {
                         data: {
                             image, name, description,
                         },
                     } = await axios.get(myTokenURI);
-                    const price =ethers.formatUnits(
+
+                    const price = ethers.formatUnits(
                         unformattedPrice.toString(),
                         'ether'
                     );
@@ -293,7 +295,7 @@ export const NFTMarketplaceProvider = ({children}) => {
                     }
                 })
             );
-            console.log("Items data:", items);
+            console.log("Items data => ", items);
             return items;
         } catch (e) {
             console.log("Error while fetching listed NFTs", e);
