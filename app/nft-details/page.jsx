@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState, useContext } from "react";
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams, usePathname } from 'next/navigation';
 
 //INTERNAL IMPORT
 import { Button, Category, Brand } from "../../components/components-index";
@@ -14,22 +14,23 @@ import Footer from "../../components/Footer/footer";
 const NFTDetails = () => {
     const { currentAccount } = useContext(NFTMarketplaceContext);
 
+    // Todo: this was just a tricky fix, find proper solution using router
+    const param = useSearchParams();
     const [nft, setNft] = useState({
-        image: "",
-        tokenId: "",
-        name: "",
-        owner: "",
-        price: "",
-        seller: "",
+        image: param.get("image"),
+        tokenId: param.get("tokenId"),
+        name: param.get("name"),
+        owner: param.get("owner"),
+        price: param.get("price"),
+        seller: param.get("seller"),
     });
 
-    const router = useRouter();
-    console.log("Query:", router.query);
-
-    useEffect(() => {
-        if (!router.isReady) return;
-        setNft(router.query);
-    }, [router.isReady]);
+    // const router = useRouter();
+    //
+    // useEffect(() => {
+    //     if (!router.isReady) return;
+    //     setNft(router.query);
+    // }, [router.isReady]);
 
     return (
         <div>
@@ -41,5 +42,6 @@ const NFTDetails = () => {
         </div>
     );
 };
+
 
 export default NFTDetails;

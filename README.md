@@ -12,3 +12,10 @@ npx hardhat node
 npx hardhat run scripts/deploy.js
 npx hardhat run scripts/deploy.js --network localhost
 ```
+
+
+Todo (s):
+
+- Buy button not working
+- Details page not fetching data
+- Author page not rendering data

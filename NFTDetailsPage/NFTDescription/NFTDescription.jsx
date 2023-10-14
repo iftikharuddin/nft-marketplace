@@ -38,7 +38,6 @@ const NFTDescription = ({ nft }) => {
   const [owner, setOwner] = useState(false);
 
   const router = useRouter();
-  console.log("Lets check NFT details:", nft);
   const historyArray = [
     images.user1,
     images.user2,

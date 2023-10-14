@@ -223,8 +223,6 @@ export const NFTMarketplaceProvider = ({children}) => {
                 data.map(
                     async ({ tokenId, seller, owner, price: unformattedPrice }) => {
                         const tokenURI = await contract.tokenURI(tokenId);
-                        console.log("TOken ID:", tokenId);
-                        console.log("TOken URL:", tokenURI);
                         const {
                             data: { image, name, description },
                         } = await axios.get(tokenURI);
@@ -246,7 +244,6 @@ export const NFTMarketplaceProvider = ({children}) => {
                     }
                 )
             );
-            console.log(items);
             return items;
 
             // }
@@ -261,53 +258,52 @@ export const NFTMarketplaceProvider = ({children}) => {
         fetchNFTs();
     }, []);
 
-    // Fetch my NFT or listed NFTs
-    const fetchMyNFTsOrListedNFTs = async(type)=> {
-        try {
-            const contract = await ConnectingWithSmartContract();
-            // const data = type == "fetchItemsListed"
-            //     ? await contract.fetchItemsListed()
-            //     : await contract.fetchMyNFTs();
-
-            const data = await contract.fetchItemsListed();
-            console.log("This is DATAAA:", data);
-
-            const items = await Promise.all(
-                data.map(async ({tokenId, seller, owner, price: unformattedPrice}) => {
-                    const myTokenURI = contract.tokenURI(tokenId);
-                    const {
-                        data: {
-                            image, name, description,
-                        },
-                    } = await axios.get(myTokenURI);
-                    const price =ethers.formatUnits(
-                        unformattedPrice.toString(),
-                        'ether'
-                    );
-                    return {
-                        price,
-                        // tokenId: tokenId.toNumber(),
-                        tokenId,
-                        seller,
-                        owner,
-                        image,
-                        name,
-                        description,
-                        myTokenURI,
-                    }
-                })
-            );
-            console.log("Items data:", items);
-            return items;
-        } catch (e) {
-            console.log("Error while fetching listed NFTs", e);
-
-        }
-    }
-
-    useEffect(() => {
-        fetchMyNFTsOrListedNFTs();
-    }, []);
+    // // Fetch my NFT or listed NFTs
+    // const fetchMyNFTsOrListedNFTs = async(type)=> {
+    //     try {
+    //         const contract = await ConnectingWithSmartContract();
+    //         const data = type == "fetchItemsListed"
+    //             ? await contract.fetchItemsListed()
+    //             : await contract.fetchMyNFTs();
+    //
+    //         // const data = await contract.fetchItemsListed();
+    //         console.log("This is DATAAA:", data);
+    //
+    //         const items = await Promise.all(
+    //             data.map(async ({tokenId, seller, owner, price: unformattedPrice}) => {
+    //                 const myTokenURI = contract.tokenURI(tokenId);
+    //                 const {
+    //                     data: {
+    //                         image, name, description,
+    //                     },
+    //                 } = await axios.get(myTokenURI);
+    //                 const price =ethers.formatUnits(
+    //                     unformattedPrice.toString(),
+    //                     'ether'
+    //                 );
+    //                 return {
+    //                     price,
+    //                     tokenId: Number(tokenId),
+    //                     seller,
+    //                     owner,
+    //                     image,
+    //                     name,
+    //                     description,
+    //                     myTokenURI,
+    //                 }
+    //             })
+    //         );
+    //         console.log("Items data:", items);
+    //         return items;
+    //     } catch (e) {
+    //         console.log("Error while fetching listed NFTs", e);
+    //
+    //     }
+    // }
+    //
+    // useEffect(() => {
+    //     fetchMyNFTsOrListedNFTs();
+    // }, []);
 
     // // Allow user to BUY NFT
     // const buyNFT = async (nft)=> {
@@ -352,7 +348,7 @@ export const NFTMarketplaceProvider = ({children}) => {
                 fetchNFTs,
                 buyNFT,
                 currentAccount,
-                fetchMyNFTsOrListedNFTs,
+                // fetchMyNFTsOrListedNFTs,
                 createSale,
             }}
         >
