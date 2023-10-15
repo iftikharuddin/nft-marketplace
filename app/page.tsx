@@ -30,7 +30,7 @@ import Navbar from "../components/NavBar/navbar";
 import Footer from "../components/Footer/footer";
 import {NFTCardTwo} from "../collectionPage/collectionIndex";
 
-const MyApp = ({Component, pageProps}) => {
+const MyApp = () => {
     const { fetchNFTs } = useContext(NFTMarketplaceContext);
     const [nfts, setNfts] = useState([]);
     const [nftsCopy, setNftsCopy] = useState([]);
