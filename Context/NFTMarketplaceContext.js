@@ -352,6 +352,9 @@ export const NFTMarketplaceProvider = ({children}) => {
                 currentAccount,
                 fetchMyNFTsOrListedNFTs,
                 createSale,
+                setOpenError,
+                setError,
+                error,
             }}
         >
          {children}

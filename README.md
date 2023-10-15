@@ -23,3 +23,4 @@ Todo (s):
 - Author page not rendering data [Done]
 - React Loader Spinner | How To Create Loading Spinner In React Js For NFT Marketplace Website Project [ Done ]
 - Data Structure For Top NFTs Creators | How To Create JavaScript Data Structure
+- React Global Error Handler | How To Create ERROR Handler For API, Smart Contract | Debugging & Error

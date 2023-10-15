@@ -18,6 +18,7 @@ import Slider from "./Slider/Slider";
 import Brand from "./Brand/Brand";
 import Video from "./Video/Video";
 import Loader from "./Loader/Loader";
+import Error from "./Error/Error";
 
 export {
     Button,
@@ -35,5 +36,6 @@ export {
     Slider,
     Brand,
     Video,
-    Loader
+    Loader,
+    Error,
 };

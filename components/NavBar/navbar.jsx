@@ -14,7 +14,7 @@ import {CgMenuLeft, CgMenuRight} from 'react-icons/cg';
 // internal import
 import Style from "./navbar.module.css";
 import {Discover, Helpcenter, Notification, Sidebar, Profile} from "./index";
-import {Button} from "../components-index";
+import {Button, Error} from "../components-index";
 import images from "../../img";
 import {NFTMarketplaceContext} from "../../Context/NFTMarketplaceContext";
 
@@ -79,7 +79,7 @@ const Navbar = () => {
     };
 
     // Smart contract section
-    const {currentAccount, connectWallet} = useContext(NFTMarketplaceContext);
+    const {currentAccount, connectWallet, openError} = useContext(NFTMarketplaceContext);
 
 
     return (
@@ -182,6 +182,7 @@ const Navbar = () => {
                     />
                 </div>
             )}
+            {openError && <Error/>}
         </div>
     )
 };
