@@ -39,7 +39,6 @@ next-env.d.ts
 /img
 /artifacts
 /cache
-/Context/NFTMarketplace.json
 .idea
 .idea/
 
