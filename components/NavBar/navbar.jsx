@@ -13,7 +13,7 @@ import {CgMenuLeft, CgMenuRight} from 'react-icons/cg';
 
 // internal import
 import Style from "./navbar.module.css";
-import {Discover, Helpcenter, Notification, Sidebar, Profile} from "./index";
+import {Discover, HelpCenter, Notification, Sidebar, Profile} from "./index";
 import {Button, Error} from "../components-index";
 import images from "../../img";
 import {NFTMarketplaceContext} from "../../Context/NFTMarketplaceContext";
@@ -117,7 +117,7 @@ const Navbar = () => {
                         <p onClick={(e) => openMenu(e)}>Help Center</p>
                         {help && (
                             <div className={Style.navbar_container_right_help_box}>
-                                <Helpcenter />
+                                <HelpCenter />
                             </div>
                         )}
                     </div>
