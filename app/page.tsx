@@ -17,7 +17,7 @@ import {
     Slider,
     Brand,
     Video,
-    // Loader,
+    Loader,
 } from "../components/components-index";
 
 import Style from "./globals.css";
@@ -26,6 +26,8 @@ import Style from "./globals.css";
 import { NFTMarketplaceContext } from "../Context/NFTMarketplaceContext";
 import Navbar from "../components/NavBar/navbar";
 import Footer from "../components/Footer/footer";
+import Loader from "../components/Loader/Loader";
+import {NFTCardTwo} from "../collectionPage/collectionIndex";
 
 const MyApp = ({Component, pageProps}) => {
     const { fetchNFTs } = useContext(NFTMarketplaceContext);
@@ -57,7 +59,7 @@ const MyApp = ({Component, pageProps}) => {
             <Title heading="Browse by category" paragraph="category section" />
             <Category/>
             <Subscribe/>
-            <NFTCard NFTData={nfts} />
+            {nfts.length == 0 ? <Loader /> : <NFTCard NFTData={nfts} />}
             <Video/>
             <Brand/>
             <Footer/>

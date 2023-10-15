@@ -14,6 +14,7 @@ import images from "../../img";
 import { NFTMarketplaceContext } from "../../Context/NFTMarketplaceContext";
 import Navbar from "../../components/NavBar/navbar";
 import Footer from "../../components/Footer/footer";
+import Loader from "../../components/Loader/Loader";
 
 const searchPage = () => {
     const { fetchNFTs, setError, currentAccount } = useContext(
@@ -72,7 +73,7 @@ const searchPage = () => {
                 onClearSearch={onClearSearch}
             />
             <Filter />
-            <NFTCardTwo NFTData={nfts} />
+            {nfts.length == 0 ? <Loader/> : <NFTCardTwo NFTData={nfts} />}
             <Slider />
             <Brand />
             <Footer/>
