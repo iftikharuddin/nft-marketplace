@@ -12,6 +12,7 @@
 /.next/
 /out/
 next.config.js
+hardhat.config.js
 
 # production
 /build
@@ -41,3 +42,4 @@ next-env.d.ts
 /Context/NFTMarketplace.json
 .idea
 .idea/
+
