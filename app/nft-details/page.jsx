@@ -8,7 +8,7 @@ import NFTDetailsPage from "../../NFTDetailsPage/NFTDetailsPage";
 
 //IMPORT SMART CONTRACT DATA
 import { NFTMarketplaceContext } from "../../Context/NFTMarketplaceContext";
-import Navbar from "../../components/Navbar/navbar";
+import Navbar from "../../components/NavBar/navbar";
 import Footer from "../../components/Footer/footer";
 
 const NFTDetails = () => {

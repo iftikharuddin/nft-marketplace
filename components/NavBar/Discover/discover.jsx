@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 //INTERNAL IMPORT
-import Style from "./Discover.module.css";
+import Style from "./discover.module.css";
 
 const Discover = () => {
     //--------DISCOVER NAVIGATION MENU
