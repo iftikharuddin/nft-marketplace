@@ -1,6 +1,6 @@
-//0x5FbDB2315678afecb367f032d93F642f64180aa3
+//0x5aa226018577699a0cc96b207E8833f0619276Bd
 
 import nftMarketplace from "./NFTMarketplace";
 
-export const NFTMarketplaceAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+export const NFTMarketplaceAddress = "0x5aa226018577699a0cc96b207E8833f0619276Bd";
 export const NFTMarketplaceABI = nftMarketplace.abi;
