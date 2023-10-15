@@ -13,12 +13,14 @@ import {
     NFTCard,
     // Collection,
     AudioLive,
-    // FollowerTab,
+    FollowerTab,
     Slider,
     Brand,
     Video,
     Loader,
 } from "../components/components-index";
+
+import {getTopCreators} from "../TopCreators/TopCreators";
 
 import Style from "./globals.css";
 
@@ -32,6 +34,9 @@ const MyApp = ({Component, pageProps}) => {
     const { fetchNFTs } = useContext(NFTMarketplaceContext);
     const [nfts, setNfts] = useState([]);
     const [nftsCopy, setNftsCopy] = useState([]);
+
+    // get top creators
+    const topCreators = getTopCreators(nfts);
 
     useEffect(() => {
         // if (currentAccount) {
@@ -48,7 +53,11 @@ const MyApp = ({Component, pageProps}) => {
             <HeroSection/>
             <Service/>
             <BigNFTSilder/>
-            {/*<FollowerTab/>*/}
+            {topCreators.length == 0 ? (
+                <Loader />
+            ) : (
+                <FollowerTab topCreators={topCreators} />
+            )}
             <Slider/>
             {/*<Collection/>*/}
             <Title heading="Filter" paragraph="filter by nfts" />

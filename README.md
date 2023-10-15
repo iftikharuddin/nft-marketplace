@@ -21,4 +21,5 @@ Todo (s):
 -- Description is not fetched in details page [ BUG ]
 - Console errors [Fixed]
 - Author page not rendering data [Done]
-- React Loader Spinner | How To Create Loading Spinner In React Js For NFT Marketplace Website Project [ Done]
+- React Loader Spinner | How To Create Loading Spinner In React Js For NFT Marketplace Website Project [ Done ]
+- Data Structure For Top NFTs Creators | How To Create JavaScript Data Structure
