@@ -114,4 +114,6 @@ export default {
   vimeo,
   youtube,
   zgcmq,
+  transfer,
+  transferEther,
 };
