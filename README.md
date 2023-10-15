@@ -18,5 +18,7 @@ Todo (s):
 
 - Buy button not working [Fixed]
 - Details page not fetching data [Fixed]
+-- Description is not fetched in details page [ BUG ]
 - Console errors [Fixed]
-- Author page not rendering data [InProgress]
+- Author page not rendering data [Done]
+- React Loader Spinner | How To Create Loading Spinner In React Js For NFT Marketplace Website Project [ Done]

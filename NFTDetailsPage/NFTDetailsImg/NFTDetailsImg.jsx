@@ -74,7 +74,7 @@ const NFTDetailsImg = ({ nft }) => {
           onClick={() => openDescription()}
         >
           <p>Description</p>
-          {description ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
+          {nft.description ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
         </div>
 
         {description && (

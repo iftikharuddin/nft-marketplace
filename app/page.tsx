@@ -26,7 +26,6 @@ import Style from "./globals.css";
 import { NFTMarketplaceContext } from "../Context/NFTMarketplaceContext";
 import Navbar from "../components/NavBar/navbar";
 import Footer from "../components/Footer/footer";
-import Loader from "../components/Loader/Loader";
 import {NFTCardTwo} from "../collectionPage/collectionIndex";
 
 const MyApp = ({Component, pageProps}) => {
