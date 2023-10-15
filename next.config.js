@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    experimental: {
+        appDir: false,
+    },
     images: {
         domains: ["nftmarketplace-solidity.infura-ipfs.io", "infura-ipfs.io"],
         formats: ["image/webp"],
