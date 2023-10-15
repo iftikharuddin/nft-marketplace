@@ -15,9 +15,9 @@ import {
 } from "react-icons/ti";
 
 //INTERNAL IMPORT
-import Style from "./SideBar.module.css";
+import Style from "./sidebar.module.css";
 import images from "../../../img";
-import Button from "../../Button/Button";
+import Button from "../../Button/button";
 
 const SideBar = ({ setOpenSideMenu, currentAccount, connectWallet }) => {
     //------USESTATE

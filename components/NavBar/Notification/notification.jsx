@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 //INTERNAL IMPORT
-import Style from "./Notification.module.css";
+import Style from "./notification.module.css";
 import images from "../../../img";
 
 const Notification = () => {
