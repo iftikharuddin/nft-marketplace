@@ -54,7 +54,7 @@ import founder2 from "./founder2.jpg";
 import founder3 from "./founder3.jpg";
 import founder4 from "./founder4.jpg";
 import loader from "./loadergif.gif";
-import errorgif from "./error.jpeg"
+import errorgif from "./upload.png"
 
 export default {
   errorgif,
