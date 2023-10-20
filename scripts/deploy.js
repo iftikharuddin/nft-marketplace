@@ -7,15 +7,23 @@
 const hre = require("hardhat");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  // const currentTimestampInSeconds = Math.round(Date.now() / 1000);
+  // const unlockTime = currentTimestampInSeconds + 60;
 
   const nftMarketplace = await hre.ethers.deployContract("NFTMarketplace");
 
   await nftMarketplace.waitForDeployment();
 
   console.log(
-      `Deployed addy: ${nftMarketplace.target}`
+      `Deployed address of NFTMarketplace: ${nftMarketplace.target}`
+  );
+
+  const transferFunds = await hre.ethers.deployContract("TransferFunds");
+
+  await transferFunds.waitForDeployment();
+
+  console.log(
+      `Deployed address of Transfer Funds: ${transferFunds.target}`
   );
 }
 

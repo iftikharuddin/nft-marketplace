@@ -7,7 +7,7 @@ import {create as ipfsHttpClient } from "ipfs-http-client";
 const { ethers, JsonRpcProvider, BrowserProvider } = require('ethers');
 
 // internal import
-import {NFTMarketplaceAddress, NFTMarketplaceABI} from './constants';
+import {NFTMarketplaceAddress, NFTMarketplaceABI, transferFundsABI, transferFundsAddress} from './constants';
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID; // configure this in next.config or env
 
@@ -60,11 +60,15 @@ export const NFTMarketplaceContext = React.createContext();
 
 export const NFTMarketplaceProvider = ({children}) => {
     const titleData = "Discover, collect, and sell NFTs";
+
     // usestate
     const [error, setError] = useState("");
     const [openError, setOpenError] = useState(false);
     const [currentAccount, setCurrentAccount] = useState("");
     const router = useRouter();
+    const [accountBalance, setAccountBalance] = useState("");
+
+
     // check if wallet is connected or nah
     const checkIfWalletIsConnected = async()=> {
         try {
@@ -77,6 +81,11 @@ export const NFTMarketplaceProvider = ({children}) => {
             } else {
                 console.log("No account found");
             }
+            // const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const getBalance = await provider.getBalance(accounts[0]);
+            const bal = ethers.formatEther(getBalance);
+            setAccountBalance(bal);
             console.log(currentAccount);
         } catch (e) {
             console.log(e);
@@ -210,42 +219,45 @@ export const NFTMarketplaceProvider = ({children}) => {
 
     const fetchNFTs = async () => {
         try {
-            // const provider = new ethers.providers.JsonRpcProvider(
-            //     "https://eth-sepolia.g.alchemy.com/v2/5grUo6k3H7OGAUjfSszUqwC8OE2ryPn7"
-            // );
-            const provider = new ethers.JsonRpcProvider();
+            if(currentAccount){
+                // The If statement is added bcz
+                // can't read properties of undefined will be fixed by adding this, this occur bcz this was reading data ffrom contract even when wallet was NOT connected
+                // const provider = new ethers.providers.JsonRpcProvider(
+                //     "https://eth-sepolia.g.alchemy.com/v2/5grUo6k3H7OGAUjfSszUqwC8OE2ryPn7"
+                // );
+                const provider = new ethers.JsonRpcProvider();
 
-            const contract = fetchContract(provider);
+                const contract = fetchContract(provider);
 
-            const data = await contract.fetchMarketItems();
+                const data = await contract.fetchMarketItems();
 
-            const items = await Promise.all(
-                data.map(
-                    async ({ tokenId, seller, owner, price: unformattedPrice }) => {
-                        const tokenURI = await contract.tokenURI(tokenId);
-                        const {
-                            data: { image, name, description },
-                        } = await axios.get(tokenURI);
-                        const price = ethers.formatUnits(
-                            unformattedPrice.toString(),
-                            "ether"
-                        );
+                const items = await Promise.all(
+                    data.map(
+                        async ({ tokenId, seller, owner, price: unformattedPrice }) => {
+                            const tokenURI = await contract.tokenURI(tokenId);
+                            const {
+                                data: { image, name, description },
+                            } = await axios.get(tokenURI);
+                            const price = ethers.formatUnits(
+                                unformattedPrice.toString(),
+                                "ether"
+                            );
 
-                        return {
-                            price,
-                            tokenId: Number(tokenId),
-                            seller,
-                            owner,
-                            image,
-                            name,
-                            description,
-                            tokenURI,
-                        };
-                    }
-                )
-            );
-            return items;
-
+                            return {
+                                price,
+                                tokenId: Number(tokenId),
+                                seller,
+                                owner,
+                                image,
+                                name,
+                                description,
+                                tokenURI,
+                            };
+                        }
+                    )
+                );
+                return items;
+            }
             // }
         } catch (error) {
             // setError("Error while fetching NFTS");
@@ -261,42 +273,44 @@ export const NFTMarketplaceProvider = ({children}) => {
     // Fetch my NFT or listed NFTs
     const fetchMyNFTsOrListedNFTs = async(type)=> {
         try {
-            const contract = await ConnectingWithSmartContract();
-            const data = type == "fetchItemsListed"
-                ? await contract.fetchItemsListed()
-                : await contract.fetchMyNFTs();
+            if(currentAccount){
+                const contract = await ConnectingWithSmartContract();
+                const data = type == "fetchItemsListed"
+                    ? await contract.fetchItemsListed()
+                    : await contract.fetchMyNFTs();
 
-            const items = await Promise.all(
-                data.map(async ({tokenId, seller, owner, price: unformattedPrice}) => {
+                const items = await Promise.all(
+                    data.map(async ({tokenId, seller, owner, price: unformattedPrice}) => {
 
-                    const myTokenURI = await contract.tokenURI(tokenId);
+                        const myTokenURI = await contract.tokenURI(tokenId);
 
-                    console.log("This is your Token URI:", myTokenURI);
+                        console.log("This is your Token URI:", myTokenURI);
 
-                    const {
-                        data: {
-                            image, name, description,
-                        },
-                    } = await axios.get(myTokenURI);
+                        const {
+                            data: {
+                                image, name, description,
+                            },
+                        } = await axios.get(myTokenURI);
 
-                    const price = ethers.formatUnits(
-                        unformattedPrice.toString(),
-                        'ether'
-                    );
-                    return {
-                        price,
-                        tokenId: Number(tokenId),
-                        seller,
-                        owner,
-                        image,
-                        name,
-                        description,
-                        myTokenURI,
-                    }
-                })
-            );
-            console.log("Items data => ", items);
-            return items;
+                        const price = ethers.formatUnits(
+                            unformattedPrice.toString(),
+                            'ether'
+                        );
+                        return {
+                            price,
+                            tokenId: Number(tokenId),
+                            seller,
+                            owner,
+                            image,
+                            name,
+                            description,
+                            myTokenURI,
+                        }
+                    })
+                );
+                console.log("Items data => ", items);
+                return items;
+            }
         } catch (e) {
             console.log("Error while fetching listed NFTs", e);
 
@@ -352,10 +366,11 @@ export const NFTMarketplaceProvider = ({children}) => {
 
     const connectToTransferFunds = async () => {
         try {
-            const web3Modal = new Wenb3Modal();
+            const web3Modal = new Web3Modal();
             const connection = await web3Modal.connect();
-            const provider = new ethers.providers.Web3Provider(connection);
-            const signer = provider.getSigner();
+            // const provider = new ethers.providers.Web3Provider(connection);
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer = await provider.getSigner();
             const contract = fetchTransferFundsContract(signer);
             return contract;
         } catch (error) {
@@ -373,7 +388,7 @@ export const NFTMarketplaceProvider = ({children}) => {
                 const contract = await connectToTransferFunds();
                 console.log(address, ether, message);
 
-                const unFormatedPrice = ethers.utils.parseEther(ether);
+                const unFormatedPrice = ethers.parseEther(ether);
                 // //FIRST METHOD TO TRANSFER FUND
                 await ethereum.request({
                     method: "eth_sendTransaction",
@@ -400,7 +415,7 @@ export const NFTMarketplaceProvider = ({children}) => {
                 setLoading(false);
 
                 const transactionCount = await contract.getTransactionCount();
-                setTransactionCount(transactionCount.toNumber());
+                setTransactionCount(Number(transactionCount));
                 window.location.reload();
             }
         } catch (error) {
@@ -420,7 +435,7 @@ export const NFTMarketplaceProvider = ({children}) => {
                     addressTo: transaction.receiver,
                     addressFrom: transaction.sender,
                     timestamp: new Date(
-                        transaction.timestamp.toNumber() * 1000
+                        Number(transaction.timestamp) * 1000
                     ).toLocaleString(),
                     message: transaction.message,
                     amount: parseInt(transaction.amount._hex) / 10 ** 18,
@@ -452,6 +467,12 @@ export const NFTMarketplaceProvider = ({children}) => {
                 setOpenError,
                 setError,
                 error,
+                transferEther,
+                getAllTransactions,
+                loading,
+                accountBalance,
+                transactionCount,
+                transactions,
             }}
         >
          {children}
