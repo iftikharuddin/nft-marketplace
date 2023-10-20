@@ -31,7 +31,7 @@ import Footer from "../components/Footer/footer";
 import {NFTCardTwo} from "../collectionPage/collectionIndex";
 
 const MyApp = () => {
-    const { fetchNFTs } = useContext(NFTMarketplaceContext);
+    const { fetchNFTs, currentAccount } = useContext(NFTMarketplaceContext);
     const [nfts, setNfts] = useState([]);
     const [nftsCopy, setNftsCopy] = useState([]);
 
@@ -39,15 +39,16 @@ const MyApp = () => {
     const topCreators = getTopCreators(nfts);
 
     useEffect(() => {
-        // if (currentAccount) {
-        fetchNFTs().then((items) => {
-            console.log(nfts);
-            setNfts(items.reverse());
-            setNftsCopy(items);
-        });
-        // }
+        if (currentAccount) {
+            fetchNFTs().then((items) => {
+                console.log(nfts);
+                setNfts(items.reverse());
+                setNftsCopy(items);
+            });
+        }
     }, []);
     return(
+
         <div className={Style.homePage}>
             <Navbar/>
             <HeroSection/>
