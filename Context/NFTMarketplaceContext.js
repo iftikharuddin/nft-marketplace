@@ -339,6 +339,103 @@ export const NFTMarketplaceProvider = ({children}) => {
         }
     };
 
+    //------------------------------------------------------------------
+
+    //----TRANSFER FUNDS
+
+    const fetchTransferFundsContract = (signerOrProvider) =>
+        new ethers.Contract(
+            transferFundsAddress,
+            transferFundsABI,
+            signerOrProvider
+        );
+
+    const connectToTransferFunds = async () => {
+        try {
+            const web3Modal = new Wenb3Modal();
+            const connection = await web3Modal.connect();
+            const provider = new ethers.providers.Web3Provider(connection);
+            const signer = provider.getSigner();
+            const contract = fetchTransferFundsContract(signer);
+            return contract;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    //---TRANSFER FUNDS
+    const [transactionCount, setTransactionCount] = useState("");
+    const [transactions, setTransactions] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const transferEther = async (address, ether, message) => {
+        try {
+            if (currentAccount) {
+                const contract = await connectToTransferFunds();
+                console.log(address, ether, message);
+
+                const unFormatedPrice = ethers.utils.parseEther(ether);
+                // //FIRST METHOD TO TRANSFER FUND
+                await ethereum.request({
+                    method: "eth_sendTransaction",
+                    params: [
+                        {
+                            from: currentAccount,
+                            to: address,
+                            gas: "0x5208",
+                            value: unFormatedPrice._hex,
+                        },
+                    ],
+                });
+
+                const transaction = await contract.addDataToBlockchain(
+                    address,
+                    unFormatedPrice,
+                    message
+                );
+
+                console.log(transaction);
+
+                setLoading(true);
+                transaction.wait();
+                setLoading(false);
+
+                const transactionCount = await contract.getTransactionCount();
+                setTransactionCount(transactionCount.toNumber());
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    //FETCH ALL TRANSACTION
+    const getAllTransactions = async () => {
+        try {
+            if (ethereum) {
+                const contract = await connectToTransferFunds();
+
+                const avaliableTransaction = await contract.getAllTransactions();
+
+                const readTransaction = avaliableTransaction.map((transaction) => ({
+                    addressTo: transaction.receiver,
+                    addressFrom: transaction.sender,
+                    timestamp: new Date(
+                        transaction.timestamp.toNumber() * 1000
+                    ).toLocaleString(),
+                    message: transaction.message,
+                    amount: parseInt(transaction.amount._hex) / 10 ** 18,
+                }));
+
+                setTransactions(readTransaction);
+                console.log(transactions);
+            } else {
+                console.log("On Ethereum");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <NFTMarketplaceContext.Provider
             value={{
