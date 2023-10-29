@@ -1,4 +1,6 @@
-# Sample Hardhat Project
+# NFT Marketplace
+
+**Test DEMO**: https://private-nftmarketplace.vercel.app/
 
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
 
@@ -13,16 +15,3 @@ npx hardhat run scripts/deploy.js
 npx hardhat run scripts/deploy.js --network localhost
 npx hardhat run scripts/deploy.js --network sepolia
 ```
-
-
-Todo (s):
-
-- Buy button not working [Fixed]
-- Details page not fetching data [Fixed]
--- Description is not fetched in details page [ BUG ]
-- Console errors [Fixed]
-- Author page not rendering data [Done]
-- React Loader Spinner | How To Create Loading Spinner In React Js For NFT Marketplace Website Project [ Done ]
-- Data Structure For Top NFTs Creators | How To Create JavaScript Data Structure
-- React Global Error Handler | How To Create ERROR Handler For API, Smart Contract | Debugging & Error
-- Adding Transfer Functionality
